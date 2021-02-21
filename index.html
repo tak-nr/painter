@@ -1,27 +1,36 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="styles.css"/>
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="styles.css" />
     <title>Painter</title>
-</head>
-<body>
-    <canvas id="canvas" width='500' height='500'></canvas>
+  </head>
+
+  <body>
+    <canvas id="canvas" width="500" height="500"></canvas>
     <div class="controls">
-        <div class="canSize">
-            <input id="canWidth" type="number" min="10" max="1000" value="500">
-            <span> x </span>
-            <input id="canHeight" type="number" min="10" max="1000" value="500">
-            <button id="sizeChangeBtn">적용</button>
-        </div>
-        <div class="colors">
-            <div class="color" style="background-color:black;"></div>
-            <div class="color" style="background-color:blue;"></div>
-            <div class="color" style="background-color:red;"></div>
-        </div>
+      <div class="canSize">
+        <input id="canWidth" type="number" min="10" max="1000" value="500" />
+        <span> x </span>
+        <input id="canHeight" type="number" min="10" max="1000" value="500" />
+        <button id="sizeChangeBtn">적용</button>
+      </div>
+      <input
+        class="brushSize"
+        type="range"
+        min="0.1"
+        max="10.0"
+        step="0.1"
+        value="1.0"
+      />
+      <div class="colors">
+        <div class="color" style="background-color: black"></div>
+        <div class="color" style="background-color: blue"></div>
+        <div class="color" style="background-color: red"></div>
+      </div>
     </div>
     <script src="app.js"></script>
-</body>
+  </body>
 </html>
