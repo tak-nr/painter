@@ -4,6 +4,8 @@ let painting = false;
 let colors = document.getElementsByClassName("color");
 let sizeChangeBtn = document.getElementById("sizeChangeBtn");
 let brushSize = document.getElementsByClassName("brushSize").item(0);
+let colorPicker = document.getElementById("colorPicker");
+let addColorBtn = document.getElementById("addColorBtn");
 
 context.strokeStyle = "#000000";
 
@@ -28,8 +30,34 @@ function onMouseMove(event) {
 }
 
 function onColorSelect(event) {
-  const color = event.target;
-  context.strokeStyle = color.style.backgroundColor;
+  const color = event.target.style.backgroundColor;
+  context.strokeStyle = color;
+  colorPicker.value = convertRgbToHex(color);
+}
+
+function convertRgbToHex(rgbValue) {
+  let hexValue = "#";
+  rgbValue = rgbValue.replace(/[^%,\d]/g, "");
+  rgbValue = rgbValue.split(",");
+  for (i = 0; i < rgbValue.length; i++) {
+    let num1 = parseInt(rgbValue[i] / 16);
+    let num2 = rgbValue[i] % 16;
+
+    if (num1 > 9) {
+      num1 = "a".charCodeAt(0) + (num1 % 9) - 1;
+      hexValue += String.fromCharCode(num1);
+    } else {
+      hexValue += num1;
+    }
+    if (num2 > 9) {
+      num2 = "a".charCodeAt(0) + (num2 % 9) - 1;
+      hexValue += String.fromCharCode(num2);
+    } else {
+      hexValue += num2;
+    }
+  }
+
+  return hexValue;
 }
 
 function onCanSizeChange(event) {
@@ -54,6 +82,27 @@ function onBrushSizeChange(event) {
   context.lineWidth = size;
 }
 
+function onColorChange(event) {
+  context.strokeStyle = event.target.value;
+}
+
+function addColor() {
+  let newColor = colorPicker.value;
+
+  for (let i = 0; i < colors.length; i++) {
+    let addedColor = colors[i].style.backgroundColor;
+    addedColor = convertRgbToHex(addedColor);
+    if (newColor === addedColor) {
+      return;
+    }
+  }
+  let newColorDiv = document.createElement("div");
+  newColorDiv.classList.add("color");
+
+  newColorDiv.style.backgroundColor = newColor;
+  document.getElementById("colors").appendChild(newColorDiv);
+}
+
 if (canvas) {
   canvas.addEventListener("mousemove", onMouseMove);
   canvas.addEventListener("mousedown", startPainting);
@@ -73,4 +122,12 @@ if (sizeChangeBtn) {
 
 if (brushSize) {
   brushSize.addEventListener("change", onBrushSizeChange);
+}
+
+if (colorPicker) {
+  colorPicker.addEventListener("change", onColorChange);
+}
+
+if (addColorBtn) {
+  addColorBtn.addEventListener("click", addColor);
 }
