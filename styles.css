@@ -39,7 +39,8 @@ body {
 }
 
 #colors {
-  display: flex;
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
 }
 
 #colors .color {
