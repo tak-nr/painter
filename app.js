@@ -6,6 +6,7 @@ let sizeChangeBtn = document.getElementById("sizeChangeBtn");
 let brushSize = document.getElementsByClassName("brushSize").item(0);
 let colorPicker = document.getElementById("colorPicker");
 let addColorBtn = document.getElementById("addColorBtn");
+let saveImageBtn = document.getElementById("saveImageBtn");
 
 context.strokeStyle = "#000000";
 
@@ -103,11 +104,24 @@ function addColor() {
   document.getElementById("colors").appendChild(newColorDiv);
 }
 
+function saveImage() {
+  const image = canvas.toDataURL("image/png");
+  const link = document.createElement("a");
+  link.href = image;
+  link.download = "fromPainter";
+  link.click();
+}
+
+function preventRightClick(event) {
+  event.preventDefault();
+}
+
 if (canvas) {
   canvas.addEventListener("mousemove", onMouseMove);
   canvas.addEventListener("mousedown", startPainting);
   canvas.addEventListener("mouseup", stopPainting);
   canvas.addEventListener("mouseleave", stopPainting);
+  canvas.addEventListener("contextmenu", preventRightClick);
 }
 
 if (colors) {
@@ -130,4 +144,8 @@ if (colorPicker) {
 
 if (addColorBtn) {
   addColorBtn.addEventListener("click", addColor);
+}
+
+if (saveImageBtn) {
+  saveImageBtn.addEventListener("click", saveImage);
 }
