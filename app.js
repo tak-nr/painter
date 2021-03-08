@@ -98,8 +98,8 @@ function addColor() {
   }
   let newColorDiv = document.createElement("div");
   newColorDiv.classList.add("color");
-
   newColorDiv.style.backgroundColor = newColor;
+  newColorDiv.addEventListener("mousedown", onColorSelect);
   document.getElementById("colors").appendChild(newColorDiv);
 }
 
