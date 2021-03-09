@@ -1,23 +1,30 @@
 const canvas = document.getElementById("canvas");
 const context = canvas.getContext("2d");
+const colors = document.getElementsByClassName("color");
+const sizeChangeBtn = document.getElementById("sizeChangeBtn");
+const brushSize = document.getElementsByClassName("brushSize").item(0);
+const colorPicker = document.getElementById("colorPicker");
+const addColorBtn = document.getElementById("addColorBtn");
+const saveImageBtn = document.getElementById("saveImageBtn");
 let painting = false;
-let colors = document.getElementsByClassName("color");
-let sizeChangeBtn = document.getElementById("sizeChangeBtn");
-let brushSize = document.getElementsByClassName("brushSize").item(0);
-let colorPicker = document.getElementById("colorPicker");
-let addColorBtn = document.getElementById("addColorBtn");
-let saveImageBtn = document.getElementById("saveImageBtn");
 
 context.strokeStyle = "#000000";
 
+// 그리기 시작
 function startPainting() {
   painting = true;
 }
 
+//그리기 멈춤
 function stopPainting() {
   painting = false;
 }
 
+/*
+마우스 커서가 움직일 때
+그리기 상태일 땐 이전 좌표에서 현재 좌표로 선을 그려주고
+그리기 상태가 아닐 때는 선의 시작 지점을 현재 좌표로 설정
+*/
 function onMouseMove(event) {
   const x = event.offsetX;
   const y = event.offsetY;
@@ -30,12 +37,14 @@ function onMouseMove(event) {
   }
 }
 
+// 미리 지정된 색이 선택되었을 때 선 색을 해당 색상으로 변경
 function onColorSelect(event) {
   const color = event.target.style.backgroundColor;
   context.strokeStyle = color;
   colorPicker.value = convertRgbToHex(color);
 }
 
+// rgb 색상 값을 regex를 이용해 hex code로 변경해줌
 function convertRgbToHex(rgbValue) {
   let hexValue = "#";
   rgbValue = rgbValue.replace(/[^%,\d]/g, "");
@@ -61,6 +70,7 @@ function convertRgbToHex(rgbValue) {
   return hexValue;
 }
 
+// 사용자 입력값에 맞춰 캔버스 사이즈 변경
 function onCanSizeChange(event) {
   const canWidth = document.getElementById("canWidth");
   const canHeight = document.getElementById("canHeight");
@@ -79,15 +89,18 @@ function onCanSizeChange(event) {
   brushSize.value = 1.0;
 }
 
+// 사용자 입력에 따라 선 굵기 변경
 function onBrushSizeChange(event) {
   let size = event.target.value;
   context.lineWidth = size;
 }
 
+// input태그를 통해 색이 변경되었을 경우
 function onColorChange(event) {
   context.strokeStyle = event.target.value;
 }
 
+// input태그에서 선택된 색을 지정 색상표에 추가
 function addColor() {
   let newColor = colorPicker.value;
 
@@ -105,6 +118,7 @@ function addColor() {
   document.getElementById("colors").appendChild(newColorDiv);
 }
 
+// 캔버스에 그려진 이미지를 저장
 function saveImage() {
   const image = canvas.toDataURL("image/png");
   const link = document.createElement("a");
@@ -113,10 +127,12 @@ function saveImage() {
   link.click();
 }
 
+// 캔버스 우클릭 방지
 function preventRightClick(event) {
   event.preventDefault();
 }
 
+// html 요소들에 이벤트 추가
 if (canvas) {
   canvas.addEventListener("mousemove", onMouseMove);
   canvas.addEventListener("mousedown", startPainting);
