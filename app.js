@@ -76,6 +76,7 @@ function onCanSizeChange(event) {
   canvas.style.height = canHeight.value + "px";
   canvas.width = canWidth.value;
   canvas.height = canHeight.value;
+  brushSize.value = 1.0;
 }
 
 function onBrushSizeChange(event) {
