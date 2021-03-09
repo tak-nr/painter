@@ -1,5 +1,5 @@
 body {
-  background-color: lightgray;
+  background-color: #e1ecf1;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -11,6 +11,7 @@ body {
   display: block;
   width: 500px;
   height: 500px;
+  box-shadow: 5px 5px 5px lightgray;
 }
 
 .controls {
@@ -18,6 +19,10 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
+}
+
+.controls > * {
+  margin: 20px;
 }
 
 .canSize {
@@ -34,13 +39,17 @@ body {
   padding: 2px;
 }
 
-.canSize button:active {
+button:active {
   transform: scale(0.95);
 }
 
 #colors {
   display: grid;
   grid-template-columns: repeat(7, 1fr);
+  background-color: white;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 5px 5px 5px lightgray;
 }
 
 #colors .color {
@@ -48,4 +57,5 @@ body {
   height: 50px;
   border-radius: 25px;
   margin: 5px;
+  box-shadow: 5px 5px 5px lightgray;
 }
